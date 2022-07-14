@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +8,7 @@
 
 body{
     @apply h-screen w-screen bg-slate-800 overflow-x-hidden;
+    font-family: 'Inter', sans-serif;
 }
 #root{
     @apply h-screen;

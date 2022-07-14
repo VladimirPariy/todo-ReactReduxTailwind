@@ -1,10 +1,12 @@
 import React, {forwardRef} from 'react';
+import cl from "./Input.module.scss";
 
-const Input = forwardRef(({type, ...props}, ref) => {
+const Input = forwardRef(({className, ...props}, ref) => {
     return (
-        <input type={type}
-               ref={ref}
-               {...props}/>
+        <input
+            ref={ref}
+            className={cl[className]}
+            {...props}/>
     );
 });
 

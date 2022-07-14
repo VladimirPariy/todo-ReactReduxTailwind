@@ -29,10 +29,12 @@ const TodoForm = () => {
     return (
         <form onSubmit={submitHandler}
               className={cl.form}>
-            <Input type={'text'}
+            <Input type='text'
                    ref={refInput}
-                   className='btnForForm'/>
-            <Button className='btnForForm'>
+                   className='inputFromForm'
+                   placeholder='Add a new Task'
+            />
+            <Button className='btnFromForm'>
                 Create
                 <AiOutlinePlusCircle/>
             </Button>

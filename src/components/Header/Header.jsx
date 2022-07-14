@@ -6,8 +6,8 @@ const Header = () => {
     return (
         <div className={cl.header}>
             <SiTodoist/>
-            <span className={cl.to}>To</span>
-            <span className={cl.do}>Do</span>
+            <span className={cl.to}>to</span>
+            <span className={cl.do}>DO</span>
         </div>
     );
 };
