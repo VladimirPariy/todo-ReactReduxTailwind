@@ -4,6 +4,8 @@ import {addTodoCreator} from "../../store/todosReducer";
 import {useDispatch} from "react-redux";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
+import {AiOutlinePlusCircle} from "react-icons/ai"
+import cl from './TodoForm.module.scss'
 
 const TodoForm = () => {
     const dispatch = useDispatch()
@@ -25,9 +27,15 @@ const TodoForm = () => {
     }
 
     return (
-        <form onSubmit={submitHandler}>
-            <Input type={'text'} ref={refInput}/>
-            <Button>+</Button>
+        <form onSubmit={submitHandler}
+              className={cl.form}>
+            <Input type={'text'}
+                   ref={refInput}
+                   className='btnForForm'/>
+            <Button className='btnForForm'>
+                Create
+                <AiOutlinePlusCircle/>
+            </Button>
         </form>
     );
 };

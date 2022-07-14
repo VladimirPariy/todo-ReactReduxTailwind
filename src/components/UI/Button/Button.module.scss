@@ -1,0 +1,6 @@
+.btnForForm {
+  @apply w-28 h-16 rounded-lg bg-sky-600 font-bold text-xl flex justify-center items-center text-white;
+  > svg {
+    @apply ml-2 text-base mt-1;
+  }
+}
