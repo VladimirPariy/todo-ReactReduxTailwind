@@ -17,7 +17,7 @@ const TodoForm = () => {
             const todo = {
                 title: refInput.current.value,
                 id: Math.random(),
-                done: false
+                isDone: false
             }
             dispatch(addTodoCreator(todo))
             refInput.current.value = ''

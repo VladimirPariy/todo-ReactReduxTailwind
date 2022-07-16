@@ -1,0 +1,10 @@
+.taskItem {
+  @apply flex p-3 bg-slate-700 mx-5 rounded-lg text-white my-3;
+  .title {
+    @apply mx-5 cursor-default flex-auto;
+  }
+
+  > input {
+    @apply cursor-pointer;
+  }
+}

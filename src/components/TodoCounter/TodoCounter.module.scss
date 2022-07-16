@@ -1,0 +1,17 @@
+.task {
+  @apply flex justify-between mt-16 mx-7 text-lg;
+
+  .activeTask {
+    @apply p-2 text-sky-600;
+
+  }
+
+  .counter {
+    @apply mx-2 p-1 bg-gray-600 rounded-lg
+  }
+
+  .doneTask {
+    @apply p-2 text-cyan-400;
+
+  }
+}

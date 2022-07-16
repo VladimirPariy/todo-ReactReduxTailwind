@@ -1,43 +1,76 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {removeTodoCreator, todoDoneCreator} from "../../store/todosReducer";
-import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
+import {
+    removeActiveTodoCreator,
+    removeDoneTodoCreator,
+    switchingActiveTodoCreator,
+    switchingDoneTodoCreator
+} from "../../store/todosReducer";
+import TodoItem from "../TodoItem/TodoItem";
+import EmptyTodoList from "../EmptyTodoList/EmptyTodoList";
+import TodoCounter from "../TodoCounter/TodoCounter";
 
 const TodoList = () => {
 
-    const {todos} = useSelector(state => state.todos)
-    const dispatch = useDispatch()
+    const {activeTodos, doneTodos} = useSelector(state => state.todos);
+    const dispatch = useDispatch();
 
-    const onDelete = (id) => {
-        dispatch(removeTodoCreator(id))
-    }
-
-    const osDisabledHandler = (e, id) => {
-        if (e.target.checked) {
-            dispatch(todoDoneCreator(id))
+    const onDelete = (id, isDone) => {
+        if(isDone){
+            dispatch(removeDoneTodoCreator(id))
+            return
         }
-    }
+        dispatch(removeActiveTodoCreator(id))
+    };
+
+    const onSwitchingHandler = (e, id, isDone) => {
+        if(isDone){
+            dispatch(switchingDoneTodoCreator(id))
+            return
+        }
+        dispatch(switchingActiveTodoCreator(id))
+    };
+
 
     const updateHandler = () => {
 
-    }
+    };
+
+    const lengthOfFilteredActiveTodos = activeTodos.filter(todo => !todo.isDone).length;
+    const lengthOfFilteredDoneTodos = doneTodos.filter(todo => todo.isDone).length;
+
+    const checkingLengthTodos = activeTodos.length === 0 && doneTodos.length === 0
+
+    const doneTask = doneTodos.filter(todo => todo.isDone)
+        .map((todo) =>
+            <TodoItem key={todo.id}
+                      elem={todo}
+                      checked={todo.isDone}
+                      type={"checkbox"}
+                      updateHandler={updateHandler}
+                      onDelete={onDelete}
+                      onSwitchingHandler={onSwitchingHandler}/>
+        );
+
+    const activeTask = activeTodos.filter(todo => !todo.isDone)
+        .map((todo) =>
+            <TodoItem key={todo.id}
+                      elem={todo}
+                      checked={todo.isDone}
+                      type={"checkbox"}
+                      updateHandler={updateHandler}
+                      onDelete={onDelete}
+                      onSwitchingHandler={onSwitchingHandler}/>
+        );
+
 
     return (
         <>
-            {todos && todos.map((todo) =>
-                <div key={todo.id}
-                     onClick={updateHandler}>
-                    <Input type={"checkbox"}
-                           onChange={(e) => osDisabledHandler(e, todo.id)}/>
-                    <div>{todo.title}</div>
-                    <Button onClick={() => onDelete(todo.id)}>
-                        delete
-                    </Button>
-                </div>
-            )}
+            <TodoCounter activeTodosLength={lengthOfFilteredActiveTodos}
+                         doneTodosLength={lengthOfFilteredDoneTodos}/>
+            {checkingLengthTodos ? <EmptyTodoList/> : <>{activeTask}{doneTask}</>}
         </>
-    );
-};
+    )
+}
 
 export default TodoList;

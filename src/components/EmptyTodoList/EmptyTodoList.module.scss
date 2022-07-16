@@ -1,0 +1,9 @@
+.emptyList {
+  @apply flex flex-col items-center justify-center w-full text-gray-300;
+  >svg{
+    @apply text-5xl text-gray-500;
+  }
+  .title{
+    @apply my-3 font-bold
+  }
+}
