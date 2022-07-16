@@ -8,13 +8,13 @@ const TodoCounter = (props) => {
     return (
         <div className={cl.task}>
             <div className={cl.activeTask}>
-                ActiveTask
+                Active task
                 <span className={cl.counter}>
                     {activeTodosLength}
                 </span>
             </div>
             <div className={cl.doneTask}>
-                DoneTask
+                Done task
                 <span className={cl.counter}>
                     {doneTodosLength} of {activeTodosLength + doneTodosLength}
                 </span>

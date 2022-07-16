@@ -41,17 +41,6 @@ const TodoList = () => {
 
     const checkingLengthTodos = activeTodos.length === 0 && doneTodos.length === 0
 
-    const doneTask = doneTodos.filter(todo => todo.isDone)
-        .map((todo) =>
-            <TodoItem key={todo.id}
-                      elem={todo}
-                      checked={todo.isDone}
-                      type={"checkbox"}
-                      updateHandler={updateHandler}
-                      onDelete={onDelete}
-                      onSwitchingHandler={onSwitchingHandler}/>
-        );
-
     const activeTask = activeTodos.filter(todo => !todo.isDone)
         .map((todo) =>
             <TodoItem key={todo.id}
@@ -63,6 +52,17 @@ const TodoList = () => {
                       onSwitchingHandler={onSwitchingHandler}/>
         );
 
+    const doneTask = doneTodos.filter(todo => todo.isDone)
+        .map((todo) =>
+            <TodoItem key={todo.id}
+                      elem={todo}
+                      checked={todo.isDone}
+                      type={"checkbox"}
+                      className={"done"}
+                      updateHandler={updateHandler}
+                      onDelete={onDelete}
+                      onSwitchingHandler={onSwitchingHandler}/>
+        );
 
     return (
         <>

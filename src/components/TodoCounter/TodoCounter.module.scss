@@ -1,5 +1,5 @@
 .task {
-  @apply flex justify-between mt-16 mx-7 text-lg;
+  @apply flex justify-between mt-16 mx-7 text-base;
 
   .activeTask {
     @apply p-2 text-sky-600;

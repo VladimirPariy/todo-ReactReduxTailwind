@@ -4,17 +4,19 @@ import Button from "../UI/Button/Button";
 import cl from './TodoItem.module.scss'
 import {BsTrashFill} from "react-icons/bs";
 
-const TodoItem = (props) => {
-    const {elem, type, updateHandler, onSwitchingHandler, onDelete, checked, className} = props
+const TodoItem = ({elem, type, updateHandler, onSwitchingHandler, onDelete, checked, className}) => {
 
+    console.log(className)
     return (
         <div key={elem.id}
              onClick={updateHandler}
-             className={cl.taskItem}>
+             className={className ?
+                 `${cl.taskItem} ${cl[className]}` :
+                 cl.taskItem}>
 
             <Input type={type}
                    onChange={(e) => onSwitchingHandler(e, elem.id, elem.isDone)}
-                    checked={checked}
+                   checked={checked}
             />
             <div className={cl.title}>{elem.title}</div>
             <Button onClick={() => onDelete(elem.id, elem.isDone)}

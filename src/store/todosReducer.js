@@ -14,7 +14,7 @@ export const todosReducer = (state = initialState, action) => {
         case ADD_TODO:
             return {
                 ...state,
-                activeTodos: [...state.activeTodos, action.payload]
+                activeTodos: [action.payload, ...state.activeTodos ]
             }
 
         case REMOVE_ACTIVE_TODO:
