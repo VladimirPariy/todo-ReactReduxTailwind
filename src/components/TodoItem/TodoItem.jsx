@@ -33,7 +33,7 @@ const TodoItem = (props) => {
 
     const onUpdateFinishHandler = (e) => {
         if (e.key === 'Enter' && inputRef.current.value.length > 0) {
-            onSubmitHandler(e, elem.id, inputRef.current.value)
+            onSubmitHandler(e, elem.id, inputRef.current.value, elem.isDone)
             setIsUpdatingTask(false)
         }
     }
@@ -45,7 +45,7 @@ const TodoItem = (props) => {
             inputRef.current.focus()
             return
         }
-        onSubmitHandler(e, elem.id, inputRef.current.value)
+        onSubmitHandler(e, elem.id, inputRef.current.value, elem.isDone)
         setIsUpdatingTask(false)
     }
 
@@ -75,7 +75,9 @@ const TodoItem = (props) => {
 
                 <Input type="text"
                        className={!isUpdatingTask ? 'none' : 'textUpdate'}
-                       ref={inputRef}/>
+                       ref={inputRef}
+                       onBlur={onSaveUpdateHandler}
+                />
 
                 <Button onClick={onSaveUpdateHandler}>
                     <AiOutlineCheck/>

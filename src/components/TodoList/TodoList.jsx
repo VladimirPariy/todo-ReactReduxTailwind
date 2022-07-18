@@ -5,7 +5,7 @@ import {
     removeDoneTodoCreator,
     switchingActiveTodoCreator,
     switchingDoneTodoCreator,
-    updateActiveTodoCreator
+    updateActiveTodoCreator, updateDoneTodoCreator
 } from "../../store/todosReducer";
 import TodoItem from "../TodoItem/TodoItem";
 import EmptyTodoList from "../EmptyTodoList/EmptyTodoList";
@@ -41,8 +41,12 @@ const TodoList = () => {
         dispatch(switchingActiveTodoCreator(id))
     };
 
-    const onUpdateHandler = (e, id, title) => {
+    const onUpdateHandler = (e, id, title, isDone) => {
         e.stopPropagation()
+        if (isDone) {
+            dispatch(updateDoneTodoCreator(id, title))
+            return
+        }
         dispatch(updateActiveTodoCreator(id, title))
     }
 
