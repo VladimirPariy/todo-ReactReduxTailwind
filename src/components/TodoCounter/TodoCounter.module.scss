@@ -1,13 +1,13 @@
 .task {
-  @apply flex justify-between mt-16 mx-7 text-base;
+  @apply flex ml-7 text-base;
 
   .activeTask {
-    @apply p-2 text-sky-600;
+    @apply p-2 text-sky-600 mt-16 cursor-default;
 
   }
 
   .counter {
-    @apply mx-2 p-1 bg-gray-600 rounded-lg
+    @apply mx-2 p-1 bg-gray-600 rounded-lg;
   }
 
   .doneTask {

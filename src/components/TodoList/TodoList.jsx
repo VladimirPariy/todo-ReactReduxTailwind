@@ -9,9 +9,10 @@ import {
 } from "../../store/todosReducer";
 import TodoItem from "../TodoItem/TodoItem";
 import EmptyTodoList from "../EmptyTodoList/EmptyTodoList";
-import TodoCounter from "../TodoCounter/TodoCounter";
+import TodoActiveCounter from "../TodoCounter/TodoActiveCounter";
 import cl from './TodoList.module.scss'
 import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai";
+import TodoCompletedCounter from "../TodoCounter/TodoCompletedCounter";
 
 const TodoList = () => {
 
@@ -72,7 +73,8 @@ const TodoList = () => {
         <>
             <div className={cl.done}
                  onClick={visibleDoneTaskHandler}>
-                Completed
+                <TodoCompletedCounter activeTodosLength={lengthOfFilteredActiveTodos}
+                                      doneTodosLength={lengthOfFilteredDoneTodos}/>
                 {isVisibleDoneTask ? <AiOutlineArrowDown/> : <AiOutlineArrowUp/>}
             </div>
             {isVisibleDoneTask &&
@@ -92,8 +94,7 @@ const TodoList = () => {
 
     return (
         <>
-            <TodoCounter activeTodosLength={lengthOfFilteredActiveTodos}
-                         doneTodosLength={lengthOfFilteredDoneTodos}/>
+            <TodoActiveCounter activeTodosLength={lengthOfFilteredActiveTodos}/>
             {checkingLengthTodos ? <EmptyTodoList/> : <>{activeTask}{doneTask}</>}
         </>
     )

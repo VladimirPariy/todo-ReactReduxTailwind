@@ -1,6 +1,6 @@
 .done{
-  @apply text-xl text-gray-400 flex ml-9;
+  @apply flex cursor-pointer;
   >svg {
-    @apply mt-1 ml-2;
+    @apply mt-2 text-cyan-400 text-xl;
   }
 }
