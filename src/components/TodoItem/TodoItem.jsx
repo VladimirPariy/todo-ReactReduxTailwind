@@ -4,7 +4,6 @@ import Button from "../UI/Button/Button";
 import cl from './TodoItem.module.scss'
 import {BsPencil, BsTrashFill} from "react-icons/bs";
 import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
-import input from "../UI/Input/Input";
 
 const TodoItem = (props) => {
 
@@ -87,7 +86,6 @@ const TodoItem = (props) => {
                 </Button>
 
             </form>
-
 
             <Button onClick={onUpdateStartHandler}
                     className={'btnForUpdateTask'}>
