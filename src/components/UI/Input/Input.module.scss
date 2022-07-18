@@ -1,4 +1,13 @@
 .inputFromForm {
   @apply w-full bg-slate-700 focus:outline-cyan-400 focus:outline-none rounded-2xl focus:outline-offset-0 px-8 text-white text-lg;
 }
+.textUpdate {
+  @apply bg-slate-800 flex-auto w-full text-lg px-2 rounded-lg focus:outline-sky-600 focus:outline-none focus:outline-offset-0 mr-2;
+}
+.checkbox{
+  @apply cursor-pointer;
+}
+.none {
+  @apply hidden;
+}
 

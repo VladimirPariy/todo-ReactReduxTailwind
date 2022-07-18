@@ -7,4 +7,10 @@
 
 .btnForDeleteTask{
   @apply hover:text-red-400 shrink-0;
+  >svg{
+    @apply mx-2
+  }
+}
+.btnForUpdateTask{
+  @apply hover:text-green-400
 }

@@ -2,7 +2,8 @@ const ADD_TODO = 'ADD_TODO',
     REMOVE_ACTIVE_TODO = 'REMOVE_ACTIVE_TODO',
     REMOVE_DONE_TODO = 'REMOVE_DONE_TODO',
     SWITCHING_ACTIVE_TODO = 'SWITCHING_ACTIVE_TODO',
-    SWITCHING_DONE_TODO = 'SWITCHING_DONE_TODO'
+    SWITCHING_DONE_TODO = 'SWITCHING_DONE_TODO',
+    UPDATE_ACTIVE_TODO = 'UPDATE_ACTIVE_TODO'
 
 const initialState = {
     activeTodos: [],
@@ -14,7 +15,7 @@ export const todosReducer = (state = initialState, action) => {
         case ADD_TODO:
             return {
                 ...state,
-                activeTodos: [action.payload, ...state.activeTodos ]
+                activeTodos: [action.payload, ...state.activeTodos]
             }
 
         case REMOVE_ACTIVE_TODO:
@@ -50,7 +51,18 @@ export const todosReducer = (state = initialState, action) => {
                 ],
                 doneTodos: state.doneTodos.filter(todo => todo.id !== action.payload)
             }
-
+        case UPDATE_ACTIVE_TODO:
+            return {
+                ...state,
+                activeTodos: [
+                    ...state.activeTodos.map(todo => {
+                        if (todo.id === action.payload.id) {
+                            return {...todo, title: action.payload.title}
+                        }
+                        return todo
+                    })
+                ]
+            }
         default:
             return state
     }
@@ -61,3 +73,4 @@ export const removeActiveTodoCreator = (id) => ({type: REMOVE_ACTIVE_TODO, paylo
 export const removeDoneTodoCreator = (id) => ({type: REMOVE_DONE_TODO, payload: id})
 export const switchingActiveTodoCreator = (id) => ({type: SWITCHING_ACTIVE_TODO, payload: id})
 export const switchingDoneTodoCreator = (id) => ({type: SWITCHING_DONE_TODO, payload: id})
+export const updateActiveTodoCreator = (id, title) => ({type: UPDATE_ACTIVE_TODO, payload: {id, title}})
