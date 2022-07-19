@@ -13,7 +13,7 @@ const TodoForm = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (refInput.current.value.length > 0) {
+        if (refInput.current.value.trim().length > 0) {
             const todo = {
                 title: refInput.current.value,
                 id: Math.random(),
@@ -23,6 +23,7 @@ const TodoForm = () => {
             refInput.current.value = ''
             refInput.current.focus()
         }
+        refInput.current.value = ''
         refInput.current.focus()
     }
 

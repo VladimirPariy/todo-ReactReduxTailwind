@@ -5,18 +5,21 @@
   }
 }
 
-.btnForDeleteTask{
-  @apply hover:text-red-400 shrink-0;
-  >svg{
+.btnForDeleteTask {
+  @apply hover:text-red-500 shrink-0;
+  > svg {
     @apply mx-2
   }
 }
-.btnForUpdateTask{
-  @apply hover:text-green-400
+
+.btnForUpdateTask {
+  @apply hover:text-green-500
 }
-.save{
-  @apply hover:bg-sky-600 px-1
+
+.save {
+  @apply hover:bg-sky-700 px-1
 }
-.clear{
-  @apply hover:bg-cyan-400 px-1 rounded-br-lg rounded-tr-lg
+
+.clear {
+  @apply hover:bg-cyan-500 px-1 rounded-br-lg rounded-tr-lg
 }

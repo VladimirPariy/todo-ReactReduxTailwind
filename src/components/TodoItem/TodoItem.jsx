@@ -32,7 +32,8 @@ const TodoItem = (props) => {
     };
 
     const onUpdateFinishHandler = (e) => {
-        if (e.key === 'Enter' && inputRef.current.value.length > 0) {
+
+        if (e.key === 'Enter' && inputRef.current.value.trim().length > 0) {
             onSubmitHandler(e, elem.id, inputRef.current.value, elem.isDone)
             setIsUpdatingTask(false)
         }
@@ -40,8 +41,9 @@ const TodoItem = (props) => {
 
 
     const onSaveUpdateHandler = (e) => {
+
         e.preventDefault()
-        if (inputRef.current.value.length === 0) {
+        if (inputRef.current.value.trim().length === 0) {
             inputRef.current.focus()
             return
         }
