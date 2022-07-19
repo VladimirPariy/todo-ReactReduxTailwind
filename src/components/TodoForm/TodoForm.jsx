@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRef} from "react";
 import {addTodoCreator} from "../../store/todosReducer";
 import {useDispatch} from "react-redux";
@@ -6,40 +6,56 @@ import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import {AiOutlinePlusCircle} from "react-icons/ai"
 import cl from './TodoForm.module.scss'
+import Alert from "../Alert/Alert";
 
 const TodoForm = () => {
     const dispatch = useDispatch()
     const refInput = useRef()
+    const [taskValue, setTaskValue] = useState('')
+    const [isTaskValid, setIsTaskValid] = useState(true)
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (refInput.current.value.trim().length > 0) {
+        if (taskValue.trim().length > 0) {
             const todo = {
-                title: refInput.current.value,
+                title: taskValue,
                 id: Math.random(),
                 isDone: false
             }
             dispatch(addTodoCreator(todo))
-            refInput.current.value = ''
+            setTaskValue('')
             refInput.current.focus()
+            return
         }
-        refInput.current.value = ''
+        setIsTaskValid(false)
+        setTaskValue('')
         refInput.current.focus()
     }
 
+    useEffect(() => {
+        if (!isTaskValid && taskValue.length > 0)
+            setIsTaskValid(true)
+    }, [isTaskValid, taskValue])
+
     return (
-        <form onSubmit={submitHandler}
-              className={cl.form}>
-            <Input type='text'
-                   ref={refInput}
-                   className='inputFromForm'
-                   placeholder='Add a new Task'
-            />
-            <Button className='btnFromForm'>
-                Create
-                <AiOutlinePlusCircle/>
-            </Button>
-        </form>
+        <>
+            {!isTaskValid && <Alert/>}
+            <form onSubmit={submitHandler}
+                  className={cl.form}>
+                <Input type='text'
+                       ref={refInput}
+                       className='inputFromForm'
+                       placeholder='Add a new Task'
+                       value={taskValue}
+                       onChange={(e) => setTaskValue(e.target.value)}
+                       // onBlur={()=> setIsTaskValid(true)}
+                />
+                <Button className='btnFromForm'>
+                    Create
+                    <AiOutlinePlusCircle/>
+                </Button>
+            </form>
+        </>
     );
 };
 

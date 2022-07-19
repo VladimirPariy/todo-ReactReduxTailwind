@@ -5,7 +5,7 @@ const Alert = () => {
     return (
         <div className={cl.alert}
              role="alert">
-            Change a few things up and try submitting again.
+            Task cannot be empty.
         </div>
     );
 };
