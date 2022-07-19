@@ -13,6 +13,7 @@ import TodoActiveCounter from "../TodoCounter/TodoActiveCounter";
 import cl from './TodoList.module.scss'
 import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai";
 import TodoCompletedCounter from "../TodoCounter/TodoCompletedCounter";
+import Alert from "../Alert/Alert";
 
 const TodoList = () => {
 
@@ -20,6 +21,7 @@ const TodoList = () => {
     const dispatch = useDispatch();
 
     const [isVisibleDoneTask, setIsVisibleDoneTask] = useState(true)
+    const [isTaskValid, setIsTaskValid] = useState(true)
 
     const visibleDoneTaskHandler = () => {
         setIsVisibleDoneTask(prev => !prev)
@@ -27,6 +29,7 @@ const TodoList = () => {
 
 
     const onDeleteHandler = (id, isDone) => {
+        setIsTaskValid(true)
         if (isDone) {
             dispatch(removeDoneTodoCreator(id))
             return
@@ -35,6 +38,7 @@ const TodoList = () => {
     };
 
     const onSwitchingHandler = (e, id, isDone) => {
+        setIsTaskValid(true)
         if (isDone) {
             dispatch(switchingDoneTodoCreator(id))
             return
@@ -62,6 +66,8 @@ const TodoList = () => {
             <TodoItem key={todo.id}
                       elem={todo}
                       checked={todo.isDone}
+                      isTaskValid={isTaskValid}
+                      setIsTaskValid={setIsTaskValid}
                       onSubmitHandler={onUpdateHandler}
                       onDelete={onDeleteHandler}
                       onSwitchingHandler={onSwitchingHandler}
@@ -84,6 +90,8 @@ const TodoList = () => {
                                   elem={todo}
                                   checked={todo.isDone}
                                   className={"done"}
+                                  isTaskValid={isTaskValid}
+                                  setIsTaskValid={setIsTaskValid}
                                   onSubmitHandler={onUpdateHandler}
                                   onDelete={onDeleteHandler}
                                   onSwitchingHandler={onSwitchingHandler}/>
@@ -94,6 +102,7 @@ const TodoList = () => {
 
     return (
         <>
+            {!isTaskValid && <Alert/>}
             <TodoActiveCounter activeTodosLength={lengthOfFilteredActiveTodos}/>
             {checkingLengthTodos ? <EmptyTodoList/> : <>{activeTask}{doneTask}</>}
         </>

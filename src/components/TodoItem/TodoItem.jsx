@@ -14,11 +14,50 @@ const TodoItem = (props) => {
         onSubmitHandler,
         checked,
         className,
+        isTaskValid,
+        setIsTaskValid,
     } = props
 
 
     const inputRef = useRef()
+    const [taskValue, setTaskValue] = useState(elem.title)
     const [isUpdatingTask, setIsUpdatingTask] = useState(false)
+
+    const onUpdateStartHandler = () => {
+        setIsUpdatingTask(true)
+    };
+
+    const onUpdateFinishHandler = (e) => {
+        if (e.key === 'Enter' && taskValue.trim().length > 0) {
+            onSubmitHandler(e, elem.id, taskValue, elem.isDone)
+            setIsUpdatingTask(false)
+            setIsTaskValid(true)
+            return
+        }
+        if (e.key === 'Enter' && taskValue.trim().length === 0) {
+            setIsTaskValid(false)
+        }
+    }
+
+    const onSaveUpdateHandler = (e) => {
+        e.preventDefault()
+        if (taskValue.trim().length === 0) {
+            inputRef.current.focus()
+            setIsTaskValid(false)
+            return;
+        } else {
+            onSubmitHandler(e, elem.id, taskValue, elem.isDone)
+            setIsUpdatingTask(false)
+            setIsTaskValid(true)
+        }
+    }
+
+    const onClearUpdateHandler = (e) => {
+        e.preventDefault()
+        setTaskValue(elem.title)
+        setIsUpdatingTask(false)
+        setIsTaskValid(true)
+    }
 
     useEffect(() => {
         if (isUpdatingTask) {
@@ -26,42 +65,18 @@ const TodoItem = (props) => {
         }
     }, [isUpdatingTask])
 
-    const onUpdateStartHandler = () => {
-        setIsUpdatingTask(true)
-        inputRef.current.value = elem.title
-    };
 
-    const onUpdateFinishHandler = (e) => {
-
-        if (e.key === 'Enter' && inputRef.current.value.trim().length > 0) {
-            onSubmitHandler(e, elem.id, inputRef.current.value, elem.isDone)
-            setIsUpdatingTask(false)
+    useEffect(() => {
+        if (isUpdatingTask && taskValue.length === 0 && !isTaskValid) {
+            setIsTaskValid(false)
+        } else if (isUpdatingTask && taskValue.length > 0 && !isTaskValid) {
+            setIsTaskValid(true)
         }
-    }
-
-
-    const onSaveUpdateHandler = (e) => {
-
-        e.preventDefault()
-        if (inputRef.current.value.trim().length === 0) {
-            inputRef.current.focus()
-            return
-        }
-        onSubmitHandler(e, elem.id, inputRef.current.value, elem.isDone)
-        setIsUpdatingTask(false)
-    }
-
-    const onClearUpdateHandler = (e) => {
-        e.preventDefault()
-        inputRef.current.value = elem.title
-        setIsUpdatingTask(false)
-    }
+    }, [isUpdatingTask, taskValue, isTaskValid])
 
     return (
         <div key={elem.id}
-             className={className ?
-                 `${cl.taskItem} ${cl[className]}` :
-                 cl.taskItem}>
+             className={className ? `${cl.taskItem} ${cl[className]}` : cl.taskItem}>
 
             <Input type={'checkbox'}
                    className={'checkbox'}
@@ -74,21 +89,18 @@ const TodoItem = (props) => {
 
             <form onKeyDown={onUpdateFinishHandler}
                   className={!isUpdatingTask ? cl.none : cl.form}>
-
                 <Input type="text"
                        className={!isUpdatingTask ? 'none' : 'textUpdate'}
                        ref={inputRef}
-                       onBlur={onSaveUpdateHandler}
-                />
-
-                <Button onClick={onSaveUpdateHandler} className='save'>
+                       onBlur={() => inputRef.current.focus()}
+                       value={taskValue}
+                       onChange={(e) => setTaskValue(e.target.value)}/>
+                <Button onClick={onSaveUpdateHandler} className={'save'}>
                     <AiOutlineCheck/>
                 </Button>
-
                 <Button onClick={onClearUpdateHandler} className={'clear'}>
                     <AiOutlineClose/>
                 </Button>
-
             </form>
 
             <Button onClick={onUpdateStartHandler}
