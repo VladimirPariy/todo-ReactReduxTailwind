@@ -79,11 +79,11 @@ const TodoItem = (props) => {
                        onBlur={onSaveUpdateHandler}
                 />
 
-                <Button onClick={onSaveUpdateHandler}>
+                <Button onClick={onSaveUpdateHandler} className='save'>
                     <AiOutlineCheck/>
                 </Button>
 
-                <Button onClick={onClearUpdateHandler}>
+                <Button onClick={onClearUpdateHandler} className={'clear'}>
                     <AiOutlineClose/>
                 </Button>
 

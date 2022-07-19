@@ -14,3 +14,9 @@
 .btnForUpdateTask{
   @apply hover:text-green-400
 }
+.save{
+  @apply hover:bg-sky-600 px-1
+}
+.clear{
+  @apply hover:bg-cyan-400 px-1 rounded-br-lg rounded-tr-lg
+}
