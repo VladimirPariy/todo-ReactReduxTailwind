@@ -1,9 +1,9 @@
 .header {
-  @apply bg-slate-900 w-full font-bold text-5xl flex justify-center items-center;
-  height: 28%;
+  @apply bg-slate-900 w-full font-bold sm:text-5xl text-3xl flex justify-center items-center h-20 sm:h-1/4;
+
 
   > svg {
-    @apply text-sky-600 text-4xl origin-bottom -rotate-12 mt-3;
+    @apply text-sky-600 sm:text-4xl text-2xl origin-bottom -rotate-12 mt-3;
   }
 
   .to {

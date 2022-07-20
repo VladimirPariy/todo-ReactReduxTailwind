@@ -14,14 +14,16 @@ import cl from './TodoList.module.scss'
 import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai";
 import TodoCompletedCounter from "../TodoCounter/TodoCompletedCounter";
 import Alert from "../Alert/Alert";
+import {isValidTodoCreator} from "../../store/isValidReducer";
 
 const TodoList = () => {
 
     const {activeTodos, doneTodos} = useSelector(state => state.todos);
+    const {isValid:isTaskValid} = useSelector(state=>state.isValid)
     const dispatch = useDispatch();
 
     const [isVisibleDoneTask, setIsVisibleDoneTask] = useState(true)
-    const [isTaskValid, setIsTaskValid] = useState(true)
+
 
     const visibleDoneTaskHandler = () => {
         setIsVisibleDoneTask(prev => !prev)
@@ -29,7 +31,7 @@ const TodoList = () => {
 
 
     const onDeleteHandler = (id, isDone) => {
-        setIsTaskValid(true)
+        dispatch(isValidTodoCreator(true))
         if (isDone) {
             dispatch(removeDoneTodoCreator(id))
             return
@@ -38,7 +40,7 @@ const TodoList = () => {
     };
 
     const onSwitchingHandler = (e, id, isDone) => {
-        setIsTaskValid(true)
+        dispatch(isValidTodoCreator(true))
         if (isDone) {
             dispatch(switchingDoneTodoCreator(id))
             return
@@ -66,8 +68,6 @@ const TodoList = () => {
             <TodoItem key={todo.id}
                       elem={todo}
                       checked={todo.isDone}
-                      isTaskValid={isTaskValid}
-                      setIsTaskValid={setIsTaskValid}
                       onSubmitHandler={onUpdateHandler}
                       onDelete={onDeleteHandler}
                       onSwitchingHandler={onSwitchingHandler}
@@ -90,8 +90,6 @@ const TodoList = () => {
                                   elem={todo}
                                   checked={todo.isDone}
                                   className={"done"}
-                                  isTaskValid={isTaskValid}
-                                  setIsTaskValid={setIsTaskValid}
                                   onSubmitHandler={onUpdateHandler}
                                   onDelete={onDeleteHandler}
                                   onSwitchingHandler={onSwitchingHandler}/>

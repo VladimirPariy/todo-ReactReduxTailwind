@@ -1,6 +1,6 @@
 .done{
   @apply flex cursor-pointer;
   >svg {
-    @apply mt-2 text-cyan-400 text-xl;
+    @apply text-cyan-400 sm:text-xl text-base mt-2.5;
   }
 }

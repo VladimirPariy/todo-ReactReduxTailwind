@@ -1,8 +1,8 @@
 .task {
-  @apply flex ml-7 text-base;
+  @apply flex sm:ml-7 ml-2 sm:text-base text-sm;
 
   .activeTask {
-    @apply p-2 text-sky-600 mt-16 cursor-default;
+    @apply p-2 text-sky-600 mt-4 sm:mt-10 cursor-default;
 
   }
 

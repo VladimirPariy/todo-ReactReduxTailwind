@@ -1,6 +1,7 @@
 import {combineReducers, createStore} from "redux";
 import {todosReducer} from "./todosReducer";
-import { devToolsEnhancer } from '@redux-devtools/extension';
+import {devToolsEnhancer} from '@redux-devtools/extension';
+import {isValidReducer} from "./isValidReducer";
 
 function saveToLocalStorage(state) {
     try {
@@ -24,9 +25,10 @@ function loadFromLocalStorage() {
 
 
 const rootReducer = combineReducers({
-todos: todosReducer,
+    todos: todosReducer,
+    isValid: isValidReducer
 })
 
-export const store = createStore(rootReducer, loadFromLocalStorage() ,devToolsEnhancer())
+export const store = createStore(rootReducer, loadFromLocalStorage(), devToolsEnhancer())
 
 store.subscribe(() => saveToLocalStorage(store.getState()));

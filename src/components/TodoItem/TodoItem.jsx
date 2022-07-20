@@ -4,6 +4,8 @@ import Button from "../UI/Button/Button";
 import cl from './TodoItem.module.scss'
 import {BsPencil, BsTrashFill} from "react-icons/bs";
 import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
+import {useDispatch, useSelector} from "react-redux";
+import {isValidTodoCreator} from "../../store/isValidReducer";
 
 const TodoItem = (props) => {
 
@@ -14,16 +16,16 @@ const TodoItem = (props) => {
         onSubmitHandler,
         checked,
         className,
-        isTaskValid,
-        setIsTaskValid,
     } = props
 
-
+    const {isValid:isTaskValid} = useSelector(state=>state.isValid)
+    const dispatch = useDispatch();
     const inputRef = useRef()
     const [taskValue, setTaskValue] = useState(elem.title)
     const [isUpdatingTask, setIsUpdatingTask] = useState(false)
 
     const onUpdateStartHandler = () => {
+        dispatch(isValidTodoCreator(true))
         setIsUpdatingTask(true)
     };
 
@@ -31,11 +33,11 @@ const TodoItem = (props) => {
         if (e.key === 'Enter' && taskValue.trim().length > 0) {
             onSubmitHandler(e, elem.id, taskValue, elem.isDone)
             setIsUpdatingTask(false)
-            setIsTaskValid(true)
+            dispatch(isValidTodoCreator(true))
             return
         }
         if (e.key === 'Enter' && taskValue.trim().length === 0) {
-            setIsTaskValid(false)
+            dispatch(isValidTodoCreator(false))
         }
     }
 
@@ -43,12 +45,12 @@ const TodoItem = (props) => {
         e.preventDefault()
         if (taskValue.trim().length === 0) {
             inputRef.current.focus()
-            setIsTaskValid(false)
+            dispatch(isValidTodoCreator(false))
             return;
         } else {
             onSubmitHandler(e, elem.id, taskValue, elem.isDone)
             setIsUpdatingTask(false)
-            setIsTaskValid(true)
+            dispatch(isValidTodoCreator(true))
         }
     }
 
@@ -56,7 +58,7 @@ const TodoItem = (props) => {
         e.preventDefault()
         setTaskValue(elem.title)
         setIsUpdatingTask(false)
-        setIsTaskValid(true)
+        dispatch(isValidTodoCreator(true))
     }
 
     useEffect(() => {
@@ -68,9 +70,10 @@ const TodoItem = (props) => {
 
     useEffect(() => {
         if (isUpdatingTask && taskValue.length === 0 && !isTaskValid) {
-            setIsTaskValid(false)
+            dispatch(isValidTodoCreator(false))
         } else if (isUpdatingTask && taskValue.length > 0 && !isTaskValid) {
-            setIsTaskValid(true)
+            dispatch(isValidTodoCreator(true))
+
         }
     }, [isUpdatingTask, taskValue, isTaskValid])
 
@@ -92,7 +95,7 @@ const TodoItem = (props) => {
                 <Input type="text"
                        className={!isUpdatingTask ? 'none' : 'textUpdate'}
                        ref={inputRef}
-                       onBlur={() => inputRef.current.focus()}
+                       onBlur={onSaveUpdateHandler}
                        value={taskValue}
                        onChange={(e) => setTaskValue(e.target.value)}/>
                 <Button onClick={onSaveUpdateHandler} className={'save'}>

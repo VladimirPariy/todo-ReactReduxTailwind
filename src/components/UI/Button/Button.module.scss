@@ -1,7 +1,8 @@
 .btnFromForm {
-  @apply w-32 h-14 rounded-lg bg-sky-700 text-lg flex justify-center items-center text-white;
+
+  @apply w-full h-8 mt-3 rounded-lg bg-sky-700 sm:text-lg text-sm flex justify-center items-center text-white sm:w-32 sm:h-14 sm:mt-0 ;
   > svg {
-    @apply ml-2 text-base;
+    @apply ml-2 sm:text-base text-sm;
   }
 }
 

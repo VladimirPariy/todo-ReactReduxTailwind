@@ -1,8 +1,8 @@
 .inputFromForm {
-  @apply w-full bg-slate-700 focus:outline-cyan-400 focus:outline-none rounded-2xl focus:outline-offset-0 px-8 text-white text-lg;
+  @apply w-full sm:h-14 h-8 bg-slate-700 focus:outline-cyan-400 focus:outline-none rounded-lg focus:outline-offset-0 px-8 text-white sm:text-lg text-sm;
 }
 .textUpdate {
-  @apply bg-slate-800 flex-auto w-full text-lg px-2 rounded-lg focus:outline-sky-600 focus:outline-none focus:outline-offset-0 mr-2;
+  @apply bg-slate-800 flex-auto w-full sm:text-lg text-sm px-2 rounded-lg focus:outline-sky-600 focus:outline-none focus:outline-offset-0 mr-2;
 }
 .checkbox{
   @apply cursor-pointer;
