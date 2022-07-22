@@ -109,8 +109,7 @@ const TodoItem = (props) => {
                            className={!isUpdating ? 'none' : 'textUpdate'}
                            value={taskValue}
                            onChange={(e) => setTaskValue(e.target.value)}
-                           ref={inputRef}
-                           onBlur={() => inputRef.current.focus()}/>
+                           ref={inputRef}/>
 
                     <Button onClick={onSaveUpdateHandler}
                             className={'save'}>
