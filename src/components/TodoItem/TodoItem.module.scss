@@ -2,7 +2,7 @@
   @apply flex sm:p-3 py-1.5 px-3 bg-slate-700 sm:mx-3 rounded-lg text-white my-3;
 
   .title {
-    @apply mx-5 cursor-default flex-auto sm:text-lg text-sm;
+    @apply mx-5 cursor-default flex-auto sm:text-lg text-sm break-all;
   }
 
   .none {
