@@ -11,7 +11,7 @@ import Alert from "../Alert/Alert";
 const TodoItem = (props) => {
 
     const {
-        elem,
+        elem: {id, isDone, isUpdating, title},
         checked,
         className,
         onDeleteHandler,
@@ -24,7 +24,7 @@ const TodoItem = (props) => {
     const {isValid: isTaskValid} = useSelector(state => state.isValid)
     const dispatch = useDispatch();
     const inputRef = useRef()
-    const [taskValue, setTaskValue] = useState(elem.title)
+    const [taskValue, setTaskValue] = useState(title)
     const [isShowAlert, setIsShowAlert] = useState(isSomeTodoUpdating)
 
     const onStartUpdateHandler = () => {
@@ -33,13 +33,13 @@ const TodoItem = (props) => {
             return false
         }
         dispatch(isValidTodoCreator(true))
-        onChangeUpdatingStatusHandler(elem.id, true, elem.isDone)
+        onChangeUpdatingStatusHandler(id, true, isDone)
     };
 
     const onFinishedUpdateHandler = (e) => {
         if (e.key === 'Enter' && taskValue.trim().length > 0) {
-            onUpdateHandler(e, elem.id, taskValue, elem.isDone)
-            onChangeUpdatingStatusHandler(elem.id, false, elem.isDone)
+            onUpdateHandler(e, id, taskValue, isDone)
+            onChangeUpdatingStatusHandler(id, false, isDone)
             dispatch(isValidTodoCreator(true))
         } else if (e.key === 'Enter' && taskValue.trim().length === 0) {
             dispatch(isValidTodoCreator(false))
@@ -51,26 +51,26 @@ const TodoItem = (props) => {
         if (taskValue.trim().length === 0) {
             inputRef.current.focus()
             dispatch(isValidTodoCreator(false))
-            onChangeUpdatingStatusHandler(elem.id, true, elem.isDone)
-            return;
+            onChangeUpdatingStatusHandler(id, true, isDone)
+            return false;
         } else {
-            onUpdateHandler(e, elem.id, taskValue, elem.isDone)
-            onChangeUpdatingStatusHandler(elem.id, false, elem.isDone)
+            onUpdateHandler(e, id, taskValue, isDone)
+            onChangeUpdatingStatusHandler(id, false, isDone)
             dispatch(isValidTodoCreator(true))
         }
     }
 
     const onClearUpdateHandler = (e) => {
         e.preventDefault()
-        setTaskValue(elem.title)
+        setTaskValue(title)
         dispatch(isValidTodoCreator(true))
-        onChangeUpdatingStatusHandler(elem.id, false, elem.isDone)
+        onChangeUpdatingStatusHandler(id, false, isDone)
     }
 
 
     useEffect(() => {
-        if (elem.isUpdating) inputRef.current.focus()
-    }, [elem.isUpdating])
+        if (isUpdating) inputRef.current.focus()
+    }, [isUpdating])
 
 
     useEffect(() => {
@@ -81,32 +81,32 @@ const TodoItem = (props) => {
     }, [isShowAlert])
 
     useEffect(() => {
-        if (elem.isUpdating && taskValue.length === 0 && !isTaskValid) {
+        if (isUpdating && taskValue.length === 0 && !isTaskValid) {
             dispatch(isValidTodoCreator(false))
-        } else if (elem.isUpdating && taskValue.length > 0 && !isTaskValid) {
+        } else if (isUpdating && taskValue.length > 0 && !isTaskValid) {
             dispatch(isValidTodoCreator(true))
         }
-    }, [elem.isUpdating, taskValue, isTaskValid])
+    }, [isUpdating, taskValue, isTaskValid, dispatch])
 
 
     return (
         <>{isShowAlert && <Alert>Please finish editing the task before trying to edit another task.</Alert>}
-            <div key={elem.id}
+            <div key={id}
                  className={className ? `${cl.taskItem} ${cl[className]}` : cl.taskItem}>
                 <Input type={'checkbox'}
                        className={'checkbox'}
-                       onChange={(e) => onSwitchingHandler(e, elem.id, elem.isDone)}
+                       onChange={(e) => onSwitchingHandler(e, id, isDone)}
                        checked={checked}/>
 
-                <div className={elem.isUpdating ? cl.none : cl.title}>
-                    {elem.title}
+                <div className={isUpdating ? cl.none : cl.title}>
+                    {title}
                 </div>
 
                 <form onKeyDown={onFinishedUpdateHandler}
-                      className={!elem.isUpdating ? cl.none : cl.form}>
+                      className={!isUpdating ? cl.none : cl.form}>
 
                     <Input type="text"
-                           className={!elem.isUpdating ? 'none' : 'textUpdate'}
+                           className={!isUpdating ? 'none' : 'textUpdate'}
                            value={taskValue}
                            onChange={(e) => setTaskValue(e.target.value)}
                            ref={inputRef}
@@ -129,7 +129,7 @@ const TodoItem = (props) => {
                     <BsPencil/>
                 </Button>
 
-                <Button onClick={() => onDeleteHandler(elem.id, elem.isDone)}
+                <Button onClick={() => onDeleteHandler(id, isDone)}
                         className={'btnForDeleteTask'}>
                     <BsTrashFill/>
                 </Button>
