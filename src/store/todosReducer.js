@@ -4,7 +4,9 @@ const ADD_TODO = 'ADD_TODO',
     SWITCHING_ACTIVE_TODO = 'SWITCHING_ACTIVE_TODO',
     SWITCHING_DONE_TODO = 'SWITCHING_DONE_TODO',
     UPDATE_ACTIVE_TODO = 'UPDATE_ACTIVE_TODO',
-    UPDATE_DONE_TODO = 'UPDATE_DONE_TODO'
+    UPDATE_DONE_TODO = 'UPDATE_DONE_TODO',
+    IS_UPDATING_ACTIVE_TASK = 'IS_UPDATING_ACTIVE_TASK',
+    IS_UPDATING_DONE_TASK = 'IS_UPDATING_DONE_TASK'
 
 const initialState = {
     activeTodos: [],
@@ -76,6 +78,30 @@ export const todosReducer = (state = initialState, action) => {
                     })
                 ]
             }
+        case IS_UPDATING_ACTIVE_TASK:
+            return {
+                ...state,
+                activeTodos: [
+                    ...state.activeTodos.map(todo => {
+                        if (todo.id === action.payload.id) {
+                            return {...todo, isUpdating: action.payload.isUpdating}
+                        }
+                        return todo
+                    })
+                ]
+            }
+        case IS_UPDATING_DONE_TASK:
+            return {
+                ...state,
+                doneTodos: [
+                    ...state.doneTodos.map(todo => {
+                        if (todo.id === action.payload.id) {
+                            return {...todo, isUpdating: action.payload.isUpdating}
+                        }
+                        return todo
+                    })
+                ]
+            }
         default:
             return state
     }
@@ -88,3 +114,11 @@ export const switchingActiveTodoCreator = (id) => ({type: SWITCHING_ACTIVE_TODO,
 export const switchingDoneTodoCreator = (id) => ({type: SWITCHING_DONE_TODO, payload: id})
 export const updateActiveTodoCreator = (id, title) => ({type: UPDATE_ACTIVE_TODO, payload: {id, title}})
 export const updateDoneTodoCreator = (id, title) => ({type: UPDATE_DONE_TODO, payload: {id, title}})
+export const isUpdatingActiveTaskCreator = (id, isUpdating) => ({
+    type: IS_UPDATING_ACTIVE_TASK,
+    payload: {id, isUpdating}
+})
+export const isUpdatingDoneTaskCreator = (id, isUpdating) => ({
+    type: IS_UPDATING_DONE_TASK,
+    payload: {id, isUpdating}
+})

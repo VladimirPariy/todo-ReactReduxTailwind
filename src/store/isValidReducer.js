@@ -1,7 +1,7 @@
 const IS_VALID_TODO = 'IS_VALID_TODO'
 
 const initialState = {
-    isValid:true
+    isValid: true
 }
 
 export const isValidReducer = (state = initialState, action) => {

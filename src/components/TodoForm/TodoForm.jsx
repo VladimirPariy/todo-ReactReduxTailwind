@@ -13,7 +13,7 @@ const TodoForm = () => {
     const dispatch = useDispatch()
     const refInput = useRef()
     const [taskValue, setTaskValue] = useState('')
-    const {isValid:isTaskValid} = useSelector(state=>state.isValid)
+    const {isValid: isTaskValid} = useSelector(state => state.isValid)
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -21,7 +21,8 @@ const TodoForm = () => {
             const todo = {
                 title: taskValue,
                 id: Math.random(),
-                isDone: false
+                isDone: false,
+                isUpdating: false
             }
             dispatch(addTodoCreator(todo))
             setTaskValue('')
@@ -32,6 +33,7 @@ const TodoForm = () => {
         setTaskValue('')
         refInput.current.focus()
     }
+
 
     useEffect(() => {
         if (!isTaskValid && taskValue.length > 0)
@@ -49,7 +51,7 @@ const TodoForm = () => {
                        placeholder='Add a new Task'
                        value={taskValue}
                        onChange={(e) => setTaskValue(e.target.value)}
-                       onBlur={()=> dispatch(isValidTodoCreator(true))}
+                       onBlur={() => dispatch(isValidTodoCreator(true))}
                 />
                 <Button className='btnFromForm'>
                     Create

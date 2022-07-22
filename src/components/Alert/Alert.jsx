@@ -1,11 +1,11 @@
 import React from 'react';
 import cl from './Alert.module.scss'
 
-const Alert = () => {
+const Alert = ({children}) => {
     return (
         <div className={cl.alert}
              role="alert">
-            Task cannot be empty.
+            {children}
         </div>
     );
 };
