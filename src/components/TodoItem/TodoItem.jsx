@@ -90,7 +90,7 @@ const TodoItem = (props) => {
 
 
     return (
-        <>{isShowAlert && <Alert>task</Alert>}
+        <>{isShowAlert && <Alert>Please finish editing the task before trying to edit another task.</Alert>}
             <div key={elem.id}
                  className={className ? `${cl.taskItem} ${cl[className]}` : cl.taskItem}>
                 <Input type={'checkbox'}
