@@ -38,7 +38,7 @@ const TodoForm = () => {
     useEffect(() => {
         if (!isTaskValid && taskValue.length > 0)
             dispatch(isValidTodoCreator(true))
-    }, [isTaskValid, taskValue])
+    }, [dispatch, isTaskValid, taskValue])
 
     return (
         <>
